@@ -3,6 +3,7 @@ import urllib.parse, random, getpass
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.firefox.firefox_binary import FirefoxBinary
+from selenium.webdriver.firefox.options import Options
 from bs4 import BeautifulSoup
 import settings
 
@@ -102,7 +103,10 @@ def Main():
     
     gecko = os.path.normpath(os.path.join(os.path.dirname(__file__), 'geckodriver'))
     binary = FirefoxBinary(settings.FIREFOX_BIN_PATH)
-    browser = webdriver.Firefox(firefox_binary=binary, executable_path=gecko+'.exe')
+    options = Options()
+    if settings.HEADLESS == True:
+        options.add_argument("--headless")
+    browser = webdriver.Firefox(firefox_binary=binary, firefox_options=options, executable_path=gecko+'.exe')
     browser.get("https://www.linkedin.com/uas/login")
 
     emailElement = browser.find_element_by_id("session_key-login")
