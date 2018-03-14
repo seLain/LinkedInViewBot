@@ -1,6 +1,5 @@
 import os, time, re
-import urlparse, random, getpass
-
+import urllib.parse, random, getpass
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 from bs4 import BeautifulSoup
@@ -14,7 +13,7 @@ def getEmail():
             email_verrified = True
             return email
         else:
-            print "Email not valid. Please try again"
+            print("Email not valid. Please try again")
 
             
 def getPassword():
@@ -25,7 +24,7 @@ def getPassword():
             pw_verrified = True
             return password
         else:
-            print "Password must have 6 or more characters"
+            print("Password must have 6 or more characters")
 
 
 def getPeopleLinks(page):
@@ -51,8 +50,8 @@ def getJobLinks(page):
 
 
 def getID(url):
-    pURL = urlparse.urlparse(url)
-    return urlparse.parse_qs(pURL.query)['id'][0]
+    pURL = urllib.parse.urlparse(url)
+    return urllib.parse.parse_qs(pURL.query)['id'][0]
 
 
 def ViewBot(browser):
@@ -93,14 +92,14 @@ def ViewBot(browser):
                 break
 
         print("[+] " + browser.title + " Visited!\n(" + str(counter)+"/" + str(len(pList)) + ") Visited/Queue")
-        print person
-        print ""
+        print(person)
+        print("")
 
 def Main():
     email = getEmail()
     password = getPassword()
     
-    print 'Logging in with %s' % email
+    print('Logging in with %s' % email)
     browser = webdriver.Firefox()
     browser.get("https://www.linkedin.com/uas/login")
 
