@@ -2,13 +2,14 @@ import os, time, re
 import urllib.parse, random, getpass
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
+from selenium.webdriver.firefox.firefox_binary import FirefoxBinary
 from bs4 import BeautifulSoup
-
+import settings
 
 def getEmail():
     email_verrified = False
     while not email_verrified:
-        email = raw_input('Linkedin Email: ')
+        email = input('Linkedin Email: ')
         if re.match(r"[^@]+@[^@]+\.[^@]+", email):
             email_verrified = True
             return email
@@ -99,8 +100,9 @@ def Main():
     email = getEmail()
     password = getPassword()
     
-    print('Logging in with %s' % email)
-    browser = webdriver.Firefox()
+    gecko = os.path.normpath(os.path.join(os.path.dirname(__file__), 'geckodriver'))
+    binary = FirefoxBinary(settings.FIREFOX_BIN_PATH)
+    browser = webdriver.Firefox(firefox_binary=binary, executable_path=gecko+'.exe')
     browser.get("https://www.linkedin.com/uas/login")
 
     emailElement = browser.find_element_by_id("session_key-login")
