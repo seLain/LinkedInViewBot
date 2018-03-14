@@ -93,7 +93,7 @@ def ViewBot(browser):
                 break
 
         print("[+] " + browser.title + " Visited!\n(" + str(counter)+"/" + str(len(pList)) + ") Visited/Queue")
-        print(person)
+        print(people)
         print("")
 
 def Main():
